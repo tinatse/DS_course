@@ -19,3 +19,30 @@ $dim
 [1,] 1 3 5
 [2,] 2 4 6
 ```
+
+
+####subset data
+```{subset data}
+x <- c("a", "b", "c", "c", "d", "a")
+
+u = x == "a"
+x[u]
+
+
+x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+name <- "foo"
+
+x[[name]] 
+x$foo
+
+x <- list(a = list(10, 12, 14), b = c(3.14, 2.81))
+
+
+#first column, third row
+x[[c(1, 3)]]
+x[[1]][[3]]
+
+#second column, first row
+x[[c(2, 1)]]
+
+```
