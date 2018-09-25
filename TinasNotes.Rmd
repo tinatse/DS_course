@@ -46,6 +46,7 @@ x[[1]][[3]]
 x[[c(2, 1)]]
 
 ```
+<<<<<<< HEAD
 
 ####Partial matching of names is allowed with [[ and $.
 ```{Partial matching of names is allowed with [[ and $}
@@ -75,3 +76,6 @@ for(letter in x){
 
 for(i in 1:4) print(x[i])
 ```
+=======
+####MORE NOTES
+>>>>>>> 21c690a15bc66be8872b430dc3d431101f50fb36
