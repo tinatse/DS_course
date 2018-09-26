@@ -39,3 +39,24 @@ columnmean = function(y){
 }
 
 columnmean(airquality)
+
+#by default will remove NA
+columnmean = function(y, removeNA = TRUE){
+  nc = ncol(y) #calculate number of columns
+  means = numeric(nc) # vector with means , same number as number of columns (nc)
+  for(i in 1:nc){ 
+    means[i] = mean(y[,i], na.rm = TRUE) #mean of column i
+  }
+  means
+}
+
+columnmean(airquality)
+
+#lazy evaluation
+#no partial matching in ... functions
+
+lm <- function(x) { x * x }
+lm
+#finds my packages first then the one in base package... Base package is the last one to be looked at!
+#serach order
+#search()
