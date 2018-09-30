@@ -77,3 +77,18 @@ for(letter in x){
 for(i in 1:4) print(x[i])
 ```
 
+
+####Coding Standards
+######Define indenting and max code length
+```{Define indenting and max code length}
+Preferences > Code > Tab width 4
+Cmd+i indent
+
+Preferences > Code > Display > Margin Column 80
+```
+
+####
+######
+```{}
+
+```
