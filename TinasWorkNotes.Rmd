@@ -1,0 +1,451 @@
+---
+title: "The R Bible"
+author: "T-bone"
+date: "13 July 2017"
+output: html_document
+---
+## summary
+```{summary}
+summary(mtcars)
+```
+
+## structure
+```{structure}
+str(mtcars)
+```
+
+## change to week commencing monday
+```{change to wcm}
+data$wcm = data$date
+data = data %>%
+  mutate(wcm = to_week(wcm, starting="mon"))
+```
+
+
+## clipboard bigger data
+```{clipboard bigger data}
+clipboard(distances, 4096*8)
+```
+
+
+## check date range of dsv file
+```{check date range of dsv file}
+fordates <- read_delim("MMM_201649_201652.dsv", 
+                  delim = "|",
+                  quote = "",
+                  col_types = "ccccccccccccccc")
+                  
+                  
+head(fordates)
+
+```
+
+## summarise data
+```{summarise data}
+processed = raw %>%
+  group_by(model, store_code, wcm ) %>%
+  summarise(sales_excl_vat = sum(sales_excl_vat), margin = sum(margin))
+```
+
+## subsetting data
+```{subsetting}
+nov_data=nov_data [c("From", "To", "Engine", "Account", "Campaign" , "Ad.group", "Clicks", "Impr", "Cost", "Total.Online.Sales", "Total.Online.Sales.Revenue")]
+```
+
+## write csv
+```{write csv}
+write.csv(id, file="outputs/all_campaigns.csv", row.names=FALSE)
+```
+
+## save plot
+```{save plot}
+library(ebplot)
+png('pax_by_bookingdate.png', width = 1000)
+print(g1)
+dev.off()
+open_png('pax_by_bookingdate.png')
+```
+
+## View
+```{View}
+head(sales) %>% View
+```
+
+## Area plot
+```{View}
+area_plot(data, 'OBS',
+          c('Media Spend' = 'spend'),
+          facet_x = 'Media',
+          geom = 'bar',
+          size = 40,
+          labels = eb_money_labels)$g +
+   scale_x_date(breaks = firsts(),
+                labels = year)}
+```
+
+## Clean
+```{Clean}
+rm(list=ls())
+```
+
+## select columns
+```{select columns}
+nov_data=nov_data [c("From", "To", "Engine")]
+
+press = press %>%
+  select(-c(Codenum, MICount, InsertDesc, Coderef))
+```
+
+## repeat string
+```{repeat string}
+paste(rep("text_to_be_repeated",43),collapse = "")
+
+{for tinatina}
+paste(rep("tina",2),collapse = "")
+```
+
+
+## read x number of rows
+```{read x number of rows}
+bookings = read.csv("MON-BookRev-FY14151617.CSV",
+                    nrows = 14641)
+```
+
+## substitute text
+```{substitute text}
+lines= gsub("a\\|b","ab",lines)
+euro_country$region <- gsub('trinidad and tobago', 'trinidad', euro_country$region)
+```
+
+
+## install from github
+```{install from github}
+devtools::install_github("tidyverse/lubridate")
+```
+
+## quicker filter for date
+```{quicker filter for date}
+plot_data_52w = plot_data %>%
+  ungroup %>%
+  filter(booking_wcm >= as.Date('2016-07-11'))
+date_lut[!duplicated(date_lut), ]
+```
+
+## remove duplicates
+```{remove duplicates}
+c1 = c(0, 1, 2, 3, 5, "NULL") 
+c2 = c("normal", "closed", "normal" , "normal" , "normal" , "closed") 
+c1c2 = data.frame(c1 , c2) %>%
+  mutate(c2 = as.character(c2))
+c1c22= c1c2[!duplicated(c1c2$c2), ]
+```
+
+## left_join by different names
+```{left_join by different names}
+left_join(test_data, kantrowitz, by = c("first_name" = "name"))
+```
+
+
+
+## rename a specific column
+```{rename a specific column}
+colnames(df)[colnames(df) == 'oldName'] <- 'newName'
+colnames(x) <- c("col1","col2")
+
+
+#OR
+
+data1 = data %>%
+  rename(brand = Brands,
+         company = Companies,
+         OBS = Date) %>%
+```
+
+## filter for NAs and summarise
+```{filter for NAs and summarise}
+a=data %>%                    # take the data.frame "data"
+  filter(!is.na(aa)) %>%    # Using "data", filter out all rows with NAs in aa
+  group_by(bb) %>%          # Then, with the filtered data, group it by "bb"
+  summarise(Unique_Elements = n_distinct(cc))   # Now summarise with unique elements per group
+```
+
+## drop delete column
+```{drop delete column}
+select(DF, -colname)
+```
+
+## read xlsx
+```{read xlsx}
+library(xlsx)
+airportdata = read.xlsx("../../Raw Data/Airport_Details/airports.dat.xlsx",1)
+```
+
+## fix order of factors
+```{fix order of factors}
+gdata3 %>%
+mutate(
+cal_quarter_year = factor(cal_quarter_year, unique(cal_quarter_year)))
+
+toy.df %>%
+  mutate(newVar = factor(originalVar, levels = c("V", "W", "X", "Y", "Z")))
+```
+
+
+## ggplot remove legend
+```{ggplot remove legend}
+theme(legend.position="none")
+```
+
+
+## google trends
+```{google trends}
+devtools::install_github("PMassicotte/gtrendsR")
+ebjobs::g_trends("package holidays")
+```
+
+
+
+## tabulate
+```{tabulate}
+spread(keyword, index) %>% View
+```
+
+
+## merge tabs ignore first 4 rows
+```{merge tabs ignore first 4 rows}
+library(ebdb)
+
+
+path = "M:/Team Bridges/Stage Entertainment/Germany/2017-08 MMM Wave 2/02 Data/Media/PR/R/?bersicht Clippings Stage_2017.xlsx"
+
+
+process_sheet = function(x){
+  
+  names(x) = x[4, ]
+  
+  x = x[5:nrow(x),]
+  
+  x
+}
+```
+
+
+
+## show min and max date for each source
+```{show min and max date for each source}
+  tmp = br_display %>% 
+    group_by(update) %>% 
+    summarise(min(OBS), max(OBS))
+```
+
+
+
+
+
+## Extend a time series
+```{If I have a month of data but need a full time series for the model}
+new_date = seq.Date(as.Date("2015-03-01"),as.Date("2018-02-25"), by = "week")
+new_date = data.frame(new_date)
+colnames(new_date) = c("OBS")
+
+new_time_series = left_join(new_date, airport_ooh_2018H1)
+new_time_series[is.na(new_time_series)]= 0
+```
+
+
+
+## to date POSIXct
+```{to date POSIXct}
+data = data %>%
+  mutate(OBS = as.Date(as.POSIXct(OBS)))
+```
+
+## all column names to lower
+```{all column names to lower}
+data = data %>%
+  rename_all(tolower)
+```
+
+
+## all data to lower case (doesnt include column names)
+```{all data to lower case (doesnt include column names)}
+data = data %>%
+  mutate_all(funs(tolower))
+```
+
+
+
+## processing portfolio example
+```{processing portfolio example}
+portfolio_tui = raw_portfolio_tui  %>%
+  mutate(    MediaPurchase = ifelse(grepl('cruise', brand, ignore.case = TRUE),
+                                    'Cruise',
+                                    'Package'),
+             MediaPurchase = ifelse(grepl('flight', brand, ignore.case = TRUE),
+                                    'Flight',
+                                    MediaPurchase),
+             MediaPurchase = ifelse(grepl('wedding', brand, ignore.case = TRUE),
+                                    'Wedding',
+                                    MediaPurchase),
+             OBS = OBS - 1, #change to wc Sunday
+             ti_holding_company = 'TUI',
+             product = paste(brand, MediaPurchase),
+             company = gsub("^First Choice Holidays$", "First Choice", company),
+             company = gsub("Falcon Leisure Group", "Thomson", company),
+             company = ifelse(grepl("first choice", brand, ignore.case = TRUE),
+                              "First Choice", company),
+             company = ifelse(grepl("thomson|cruise", brand, ignore.case = TRUE),
+                              "Thomson", company),
+             company = ifelse(grepl("tui", company, ignore.case = TRUE),
+                              "Thomson", company),
+             Brand = company)
+```
+
+
+
+## make names
+```{make names}
+names(portfolio_filmcodes) <- gsub(" ","_",names(portfolio_filmcodes))
+
+#or in mutate
+
+portfolio = portfolio %>%
+  setNames(gsub(" ", "_", names(.)))
+
+```
+
+
+## make variables
+```{make variables}
+vvs_virgin_Competitors = make_variables((portfolio_atl), 
+                                        'OBS',
+                                        'paste(Brand, Media, sep="_")',
+                                        'Spend') %>%
+  rename_all(tolower) 
+
+```
+
+
+
+
+## filter for NA
+```{filter for NA}
+clipboard(a %>% filter (is.na(Product)), 4096*16)
+
+```
+
+
+## select first row with x.ID
+```{select first row with x.ID}
+vlut2 = vlut %>%
+  group_by(id) %>%
+  summarise(Product = first(Product))
+
+```
+
+## re-order labels in plot
+```{re-order labels in plot}
+area_plot(db ,
+              "OBS",
+              "SPEND",
+              "CAL_YEAR", reorder = 'CAL_YEAR',
+              facet_x = "MEDIA_N") + ylab("Media Spend")
+
+```
+
+
+## check if columns are different
+```{check if columns are different}
+summary((raw_ppc_2018%>%
+           mutate(check = (From != To)))$check)
+
+```
+
+
+
+## check overlap
+```{check overlap}
+temp = bind_rows(
+  brdisplay_historical%>% 
+    mutate(update = "hist"),
+  brdisplay_2016  %>% 
+    mutate(update = "2016"),
+  br_display_2017H1 %>% filter(Media != "DR Display") %>% 
+    mutate(update = "2017H1"),
+  br_display_2017H2 %>% filter(Media != "DR Display") %>% 
+    mutate(update = "2017H2"),
+  br_display_2018H1 %>% filter(Media != "DR Display") %>%
+    mutate(update = "2018H1"))%>% 
+  filter(MediaPurchase != "Wedding",
+         MediaPurchase != "Weddings")
+
+tmp = temp %>% 
+  group_by(update) %>% 
+  summarise(min(OBS), max(OBS))
+
+compare_plot((temp %>% filter(OBS>"2017-01-01")),
+             "OBS",
+             "Spend",
+             group = "update",
+             facet_x = "MediaPurchase",
+             facet_y = "SubMedia")+ 
+  geom_vline(xintercept = as.numeric(to_date("2017-06-11")))+ 
+  geom_vline(xintercept = as.numeric(to_date("2017-09-17")))
+
+```
+
+
+## all text in a column to lower case - not the title
+```{all text in a column to lower case - not the title}
+df <- df %>% 
+      mutate(colB = tolower(colB)
+             
+```
+
+## Define indenting and max code length
+```{Define indenting and max code length}
+#Preferences > Code > Tab width 4
+#Cmd+i indent
+
+#Preferences > Code > Display > Margin Column 80
+```
+
+
+##Dates and Times
+```{Dates and Times}
+#Classes for dates: 
+#Dates are represented by Date
+#Times are represented by POSIXct or POSIXlt
+#Dates are stored internally as the number of days since 1970-01-01
+#Times are stored internally as the number of seconds since 1970-01-01
+
+#From character string to Date
+#as.Date("1970-01-01")
+
+#POSIXlt stores days of the week, day of the year, month, day of the month
+
+#Functions that work on dates and time:
+#weekdays : give the day of the week
+#months: give the month name
+#quarters: give the quarter number ("Q1","Q2","Q3","Q4")
+
+#You can use as.POSIXct or as.POSIXlt function to coerce character into time
+x <- Sys.time()
+p <- as.POSIXlt(x)
+names(unclass(p))
+p$sec
+
+
+#strptime function dates with different formats
+datestring = c("January 10, 2012 10:40",
+               "December 9, 2011 9:10")
+
+x = strptime(datestring, "%B %d, %Y %H:%M")
+x
+
+class(x)
+
+#For more formatting strings: 
+?strptime 
+
+```
