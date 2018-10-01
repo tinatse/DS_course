@@ -1,4 +1,10 @@
-#TINA NOTES
+---
+title: "Tina's Notes"
+author: "T-bone"
+date: "01 October 2018"
+output: html_document
+---
+
 
 ####create a matrix
 ```{create a matrix}
