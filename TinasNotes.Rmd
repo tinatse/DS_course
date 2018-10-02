@@ -1,4 +1,10 @@
-#TINA NOTES
+---
+title: "Tina's Notes"
+author: "T-bone"
+date: "01 October 2018"
+output: html_document
+---
+
 
 ####create a matrix
 ```{create a matrix}
@@ -169,49 +175,6 @@ Sequence from -5 to -20
 ```{Filter for one condition or the other}
 filter(cran, country == "US" | country == "IN")
 ```
-
-####lapply
-```{lapply}
-#lapply: Loop over a list and evaluate a function on each element
-#lapply takes three arguments: (1) a list X; (2) a function (or the name of a #function) FUN; (3) other
-#arguments via its ... argument. If X is not a list, it will be coerced to a list #using as.list.
-#lapply always returns a list, regardless of the class of the input.
-
-#apply mean to x
-x = list(a =  1:5, b=rnorm(10))
-lapply(x, mean)
-
-x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
-lapply(x, mean)
-
-x <- 1:4
-lapply(x, runif)
-
-#anonymous functions
-#write functions on the fly then the function disappears
-#function(elt) call the elt function
-#elt[,1] selects the first column
-lapply(x, function(elt) elt[,1])
-```
-
-
-####sapply
-```{sapply}
-#sapply: Same as lapply but try to simplify the result
-#sapply can return a vector
-x <- list(a = 1:4, b = rnorm(10), c = rnorm(20, 1), d = rnorm(100, 5))
-lapply(x, mean)
-sapply(x, mean)
-```
-
-####
-######
-```{}
-#apply: Apply a function over the margins of an array
-#tapply: Apply a function over subsets of a vector
-#mapply: Multivariate version of lapply
-```
-
 
 ####
 ######
