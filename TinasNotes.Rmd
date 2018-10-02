@@ -249,9 +249,45 @@ x <- matrix(rnorm(200), 20, 10)
 #calculate the 0.25 and 0.75 percentile of each row
 apply(x, 1, quantile, probs = c(0.25, 0.75))
 #matrix 2 rows, 20 columns (number of rows of the original data)
-
-
 ```
+
+
+####mapply
+```{mapply}
+#function (FUN, ..., MoreArgs = NULL, SIMPLIFY = TRUE, USE.NAMES = TRUE)
+#FUN is a function to apply
+#... contains arguments to apply over
+#MoreArgs is a list of other arguments to FUN.
+#SIMPLIFY indicates whether the result should be simplified
+
+list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))
+#same as
+mapply(rep, 1:4, 4:1)
+
+
+noise <- function(n, mean, sd) {
+  rnorm(n, mean, sd)
+  }
+
+#random with n observations, mean=1, sd =2
+noise(5, 1, 2)
+
+
+#doesnt work well with vectors
+noise(1:5, 1:5, 2)
+
+mapply(noise, 1:5, 1:5, 2) 
+#equivalent to this:
+list(noise(1, 1, 2), noise(2, 2, 2),
+     noise(3, 3, 2), noise(4, 4, 2),
+     noise(5, 5, 2))
+#1 random number with mean 1
+#2 random numbers with mean 2
+#3 random numbers with mean 3..
+```
+
+
+
 
 
 ####
