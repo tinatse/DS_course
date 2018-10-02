@@ -210,20 +210,49 @@ lapply(x, mean)
 sapply(x, mean)
 ```
 
-####
-######
-```{}
-#apply: Apply a function over the margins of an array
-#tapply: Apply a function over subsets of a vector
-#mapply: Multivariate version of lapply
+####mapply
+```{mapply}
+#mapply is a multivariate apply of sorts which applies a function in parallel over a set of #arguments.
+list(rep(1, 4), rep(2, 3), rep(3, 2), rep(4, 1))
+
+mapply(rep, 1:4, 4:1)
 ```
 
+####apply
+```{apply}
+#less typing
+#function (X, MARGIN, FUN, ...)
 
-####
-######
-```{}
+x <- matrix(rnorm(200), 20, 10) #20 rown 10 columns
+
+#mean of each column in the matrix
+apply(x, 2, mean) #second dimension is columns
+#mean of each row in the matrix
+apply(x, 1, sum) #first dimension is row
+
+#For sums and means of matrix dimensions, we have some shortcuts.
+#The shortcut functions are much faster, but you won’t notice unless you’re using a large #matrix.
+rowSums = apply(x, 1, sum)
+rowMeans = apply(x, 1, mean)
+colSums = apply(x, 2, sum)
+colMeans = apply(x, 2, mean)
+
+x <- matrix(rnorm(200), 20, 10) #20 rown 10 columns
+
+#mean of each column in the matrix
+apply(x, 2, mean) #second dimension is columns
+#mean of each row in the matrix
+apply(x, 1, sum) #first dimension is row
+
+
+x <- matrix(rnorm(200), 20, 10)
+#calculate the 0.25 and 0.75 percentile of each row
+apply(x, 1, quantile, probs = c(0.25, 0.75))
+#matrix 2 rows, 20 columns (number of rows of the original data)
+
 
 ```
+
 
 ####
 ######
