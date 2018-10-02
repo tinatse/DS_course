@@ -286,9 +286,76 @@ list(noise(1, 1, 2), noise(2, 2, 2),
 #3 random numbers with mean 3..
 ```
 
+####tapply
+```{tapply}
+#tapply is used to apply a function over subsets of a vector. I don’t know why it’s called tapply
+#function (X, INDEX, FUN = NULL, ..., simplify = TRUE)
+#X is a vector
+#INDEX is a factor or a list of factors (or else they are coerced to factors)
+#FUN is a function to be applied
+#... contains other arguments to be passed FUN
+#simplification
+
+#10 random , 10 uniform random variables, 10 random w mean 1
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+#factor variable
+#10 ones, 10 twos, 10 threes
+f <- gl(3, 10)
+
+#mean for each group in factor
+tapply(x, f, mean)
+tapply(x, f, range)
+
+```
+
+####Split
+```{Split}
+function (x, f, drop = FALSE, ...)
+#x is a vector (or list) or data frame
+#f is a factor (or coerced to one) or a list of factors
+#drop indicates whether empty factors levels should be dropped
+
+#will split x data into f groups
+
+#10 random vairables with mean 0
+x <- c(rnorm(10), runif(10), rnorm(10, 1))
+ f <- gl(3, 10)
+ 
+ #split vector into 3 parts
+ split(x, f)
+ #1st one is 10 normals
+ #2nd list is 10 uniform normals
+ #3rd is 10 normals with mean 1
+ 
+# Common to see something like this
+ #split something and then apply a function over it (mean in this case)
+   lapply(split(x, f), mean)
 
 
+library(datasets)
+head(airquality) %>% View
 
+#split airquality data into months
+#it converts the month to a factor
+s = split(airquality, airquality$Month)
+
+#apply mean to the following columns over each month
+lapply(s, function(x) colMeans(x[,c("Ozone", "Solar.R", "Wind")]))
+
+
+sapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")], na.rm=TRUE)) 
+#simplify - puts this into a matrix instead of a list
+
+
+#split on more than 1 level
+x <- rnorm(10)
+f1 <- gl(2, 5)
+f2 <- gl(5, 2)
+interaction(f1, f2) #concatenate of f1 and f2
+str(split(x, list(f1, f2))) #by a concatenate of factor 1 and factor 2
+str(split(x, list(f1, f2), drop = TRUE)) #by a concatenate of factor 1 and factor 2 drops concatenates that have empty observations
+
+```
 
 ####
 ######
