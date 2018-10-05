@@ -381,6 +381,15 @@ list.files("./data")
 
 ```
 
+####Reading Data
+```{Reading Data}
+cameraData = read.table("./data/cameras.csv", sep = ",", header = TRUE)
+#quote="" means no quotes -> this can resolve data with ` or with "
+#na.strings set the characters that represent a missing value
+#nrows how many rows to read of the file e.g. nrows=10 reads 10 lines
+#skip how many rows skip before reading the file
+
+```
 
 ####
 ######
