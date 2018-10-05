@@ -357,6 +357,31 @@ str(split(x, list(f1, f2), drop = TRUE)) #by a concatenate of factor 1 and facto
 
 ```
 
+
+#####Cleaning Date
+####Check if directory exists
+```{Check if directory exists}
+file.exists("functions")
+file.exists("M:/Team Bridges/BMS/Tina/DS_course/functions")
+```
+
+####Download File from the Web
+```{Download File from the Web}
+fileUrl = "https://data.baltimorecity.gov/api/views/dz54-2aru/rows.csv?accessType=DOWNLOAD"
+
+download.file(fileUrl, destfile = "./data/cameras.csv")
+#for mac
+download.file(fileUrl, destfile = "./data/cameras.csv", method = "curl")
+
+list.files("./data")
+
+#if url starts w http, can use download.file()
+#if url starts w https, in windows is ok
+#if url starts w https, in mac you migh need method = "curl"
+
+```
+
+
 ####
 ######
 ```{}
