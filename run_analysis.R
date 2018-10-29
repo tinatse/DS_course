@@ -1,44 +1,66 @@
+library(data.table)
 library(dplyr)
 
-#read train data 
-X_train = read.table("./UCI HAR Dataset/train/X_train.txt")
-Y_train = read.table("./UCI HAR Dataset/train/y_train.txt")
-Sub_train = read.table("./UCI HAR Dataset/train/subject_train.txt")
+dataActivityTest  <- read.table("UCI HAR Dataset/test/y_test.txt", header = FALSE)
+dataActivityTrain <- read.table("UCI HAR Dataset/train/y_train.txt", header = FALSE)
 
-# read test data
-X_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
-Y_test <- read.table("./UCI HAR Dataset/test/Y_test.txt")
-Sub_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")
+dataSubjectTrain <- read.table("UCI HAR Dataset/train/subject_train.txt", header = FALSE)
+dataSubjectTest  <- read.table("UCI HAR Dataset/test/subject_test.txt", header = FALSE)
 
-#read data description
-variable_names = read.table("./UCI HAR Dataset/features.txt")
-
-# read activity labels
-activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")
-
-# 1. Merges the training and the test sets to create one data set.
-X_total <- rbind(X_train, X_test)
-Y_total <- rbind(Y_train, Y_test)
-Sub_total <- rbind(Sub_train, Sub_test)
+dataFeaturesTest  <- read.table("UCI HAR Dataset/test/X_test.txt", header = FALSE)
+dataFeaturesTrain <- read.table("UCI HAR Dataset/train/X_train.txt", header = FALSE)
 
 
-# 2. Extracts only the measurements on the mean and standard deviation for each measurement.
-selected_var <- variable_names[grep("mean\\(\\)|std\\(\\)",variable_names[,2]),]
-X_total <- X_total[,selected_var[,1]]
+str(dataActivityTest)
+str(dataActivityTrain)
+str(dataSubjectTrain)
+str(dataSubjectTest)
+str(dataFeaturesTest)
+str(dataFeaturesTrain)
 
 
-# 3. Uses descriptive activity names to name the activities in the data set
-colnames(Y_total) <- "activity"
-Y_total$activitylabel <- factor(Y_total$activity, labels = as.character(activity_labels[,2]))
-activitylabel <- Y_total[,-1]
+#1 MERGE
+dataSubject <- rbind(dataSubjectTrain, dataSubjectTest)
+dataActivity<- rbind(dataActivityTrain, dataActivityTest)
+dataFeatures<- rbind(dataFeaturesTrain, dataFeaturesTest)
+
+names(dataSubject)<-c("subject")
+names(dataActivity)<- c("activity")
+dataFeaturesNames <- read.table("UCI HAR Dataset/features.txt")
+names(dataFeatures)<- dataFeaturesNames$V2
+
+dataCombine <- cbind(dataSubject, dataActivity)
+Data <- cbind(dataFeatures, dataCombine)
 
 
-# 4. Appropriately labels the data set with descriptive variable names.
-colnames(X_total) <- variable_names[selected_var[,1],2]
+#2 EXTRACT
+subdataFeaturesNames<-dataFeaturesNames$V2[grep("mean\\(\\)|std\\(\\)", dataFeaturesNames$V2)]
 
-# 5. From the data set in step 4, creates a second, independent tidy data set with the average
-# of each variable for each activity and each subject.
-colnames(Sub_total) <- "subject"
-total <- cbind(X_total, activitylabel, Sub_total)
-total_mean <- total %>% group_by(activitylabel, subject) %>% summarise(funs(mean))
-write.table(total_mean, file = "./UCI HAR Dataset/tidydata.txt", row.names = FALSE, col.names = TRUE)
+selectedNames<-c(as.character(subdataFeaturesNames), "subject", "activity" )
+Data<-subset(Data,select=selectedNames)
+
+str(Data)
+
+
+#3 DESCRIPTIVE NAMES
+activityLabels <- read.table("UCI HAR Dataset/activity_labels.txt", header = FALSE)
+head(Data$activity,30)
+
+
+#4 NAME LABELS
+names(Data)<-gsub("^t", "time", names(Data))
+names(Data)<-gsub("^f", "frequency", names(Data))
+names(Data)<-gsub("Acc", "Accelerometer", names(Data))
+names(Data)<-gsub("Gyro", "Gyroscope", names(Data))
+names(Data)<-gsub("Mag", "Magnitude", names(Data))
+names(Data)<-gsub("BodyBody", "Body", names(Data))
+names(Data)
+
+#5 INDEPENDENT DATA
+
+library(plyr);
+Data2<-aggregate(. ~subject + activity, Data, mean)
+Data2<-Data2[order(Data2$subject,Data2$activity),]
+write.table(Data2, "UCI HAR Dataset/tidydata.txt",row.name=FALSE)
+
+
